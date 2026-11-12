@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><title>Deep-Learning Channel Estimation for Indoor Visible Light Communication with OFDM</title><link href="latexml-lite.css" rel="stylesheet"/></head><body><div class="ltx_page_main"><div class="ltx_page_content"><article class="ltx_document"><h1 class="ltx_title ltx_title_document">Deep-Learning Channel Estimation for Indoor Visible Light Communication with OFDM</h1><div class="ltx_abstract"><h6 class="ltx_title ltx_title_abstract">Abstract</h6><p class="ltx_p">Visible light communication (VLC) reuses room lighting for data, and
+orthogonal frequency-division multiplexing (OFDM) copes with the
+low-pass response of the light-emitting diode (LED). The receiver still
+has to estimate the channel. We train a five-layer perceptron on 4,000
+simulated channels of a
+<math alttext="5\times5\times3" class="ltx_Math" display="inline" id="abstract.m1" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo>×</mo><mn>5</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">5\times5\times3</annotation></semantics></math> m
+room and compare it with least-squares (LS) and linear minimum
+mean-square error (MMSE) estimation. At 20 dB the network lowers the
+estimation error by 10.4 dB with respect to LS, and its bit error rate
+(BER) of
+<math alttext="1.39\times10^{-4}" class="ltx_Math" display="inline" id="abstract.m2" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.39</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.39\times10^{-4}</annotation></semantics></math>
+equals that of a receiver with perfect channel knowledge.</p></div><section class="ltx_section" id="S1"><h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2><div class="ltx_para" id="S1.p1"><p class="ltx_p">LED lighting can carry data at the same time as it lights a
+room <span class="citation" data-cites="komine2004fundamental elgala2011indoor">(Komine and Nakagawa
+2004; Elgala, Mesleh, and Haas 2011)</span>. Because the LED acts as a
+low-pass filter, VLC systems commonly use OFDM, which turns the
+dispersive channel into many flat subchannels <span class="citation" data-cites="armstrong2009ofdm">(Armstrong 2009)</span>. Pilot-based
+estimation of those subchannels is well understood for radio links <span class="citation" data-cites="coleri2002channel">(Coleri et al.
+2002)</span>, and neural estimators have been shown to help when the
+classic assumptions do not hold <span class="citation" data-cites="ye2018power soltani2019deep">(Ye, Li, and Juang 2018;
+Soltani et al. 2019)</span>. This report measures how much a small
+network helps in an indoor VLC link, and where the linear MMSE estimator
+fails.</p></div></section><section class="ltx_section" id="S2"><h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">2 </span>System Model</h2><div class="ltx_para" id="S2.p1"><p class="ltx_p">The LED sits at the centre of the ceiling and the photodiode at desk
+height (Fig. <a class="ltx_ref" href="#fig:room">1</a>). The line-of-sight gain follows the
+Lambertian model <span class="citation" data-cites="kahn1997wireless">(Kahn and Barry 1997)</span>,
+</p></div><table class="ltx_equation ltx_eqn_table" id="S2.E1"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline"><td class="ltx_eqn_cell ltx_align_center"><math alttext="H_{\mathrm{LOS}} = \frac{(m+1)A}{2\pi d^2}\cos^m(\phi)\,T_s\,g(\psi)\cos(\psi),
+\label{eq:los}" class="ltx_Math" display="block" id="S2.E1.m3" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mrow><mi mathvariant="normal">L</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">S</mi></mrow></msub><mo>=</mo><mfrac><mrow><mrow><mo form="prefix" stretchy="true">(</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo form="postfix" stretchy="true">)</mo></mrow><mi>A</mi></mrow><mrow><mn>2</mn><mi>π</mi><msup><mi>d</mi><mn>2</mn></msup></mrow></mfrac><msup><mo>cos</mo><mi>m</mi></msup><mrow><mo form="prefix" stretchy="true">(</mo><mi>ϕ</mi><mo form="postfix" stretchy="true">)</mo></mrow><mspace width="0.167em"></mspace><msub><mi>T</mi><mi>s</mi></msub><mspace width="0.167em"></mspace><mi>g</mi><mrow><mo form="prefix" stretchy="true">(</mo><mi>ψ</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>cos</mo><mrow><mo form="prefix" stretchy="true">(</mo><mi>ψ</mi><mo form="postfix" stretchy="true">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">H_{\mathrm{LOS}} = \frac{(m+1)A}{2\pi d^2}\cos^m(\phi)\,T_s\,g(\psi)\cos(\psi),
+\label{eq:los}</annotation></semantics></math></td><td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td></tr></table><div class="ltx_para" id="S2.p2"><p class="ltx_p"> where
+<math alttext="m" class="ltx_Math" display="inline" id="S2.p2.m4" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+is the Lambertian order,
+<math alttext="A" class="ltx_Math" display="inline" id="S2.p2.m5" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+the detector area and
+<math alttext="d" class="ltx_Math" display="inline" id="S2.p2.m6" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+the distance. First reflections from the walls and the 3 MHz bandwidth
+of the LED complete the frequency response. Each OFDM symbol has 64
+subcarriers with a pilot on every fourth one.</p></div><figure class="ltx_figure" id="S2.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering" src="source/figures/room.png" width="520"/><figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Room geometry: LED on the ceiling, receiver plane at
+0.85 m.</figcaption></figure></section><section class="ltx_section" id="S3"><h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">3 </span>Estimators</h2><div class="ltx_para" id="S3.p1"><p class="ltx_p">LS divides each received pilot by the transmitted one and
+interpolates between pilots. MMSE weights the LS estimate with the
+channel correlation and a design signal-to-noise ratio (SNR), fixed here
+at 15 dB. The deep learning (DL) estimator is a perceptron with layers
+of 512, 256, 256, 128 and 64 units, trained with Adam <span class="citation" data-cites="kingma2015adam">(Kingma and Ba 2015)</span>
+on channels from random positions and SNRs between 0 and 30 dB, as
+listed in Table <a class="ltx_ref" href="#tab:params">1</a>.</p></div><figure class="ltx_table" id="S3.T1"><figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 1: </span>Simulation parameters</figcaption><table class="ltx_tabular ltx_centering">
+
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Room</td>
+<td style="text-align: left;"><math alttext="5\times5\times3" class="ltx_Math" display="inline" id="S3.T1.m7" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo>×</mo><mn>5</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">5\times5\times3</annotation></semantics></math> m</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LED semi-angle</td>
+<td style="text-align: left;"><math alttext="60^\circ" class="ltx_Math" display="inline" id="S3.T1.m8" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>60</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">60^\circ</annotation></semantics></math></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subcarriers / pilots</td>
+<td style="text-align: left;">64 / 16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Modulation</td>
+<td style="text-align: left;">QPSK</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Training set</td>
+<td style="text-align: left;">4,000 channels</td>
+</tr>
+</tbody>
+</table></figure></section><section class="ltx_section" id="S4"><h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">4 </span>Results</h2><div class="ltx_para" id="S4.p1"><p class="ltx_p">Fig. <a class="ltx_ref" href="#fig:mse">2</a> shows the estimation error. At 20 dB the
+DL estimate is 10.4 dB better than LS. The MMSE estimator is better than
+LS near its design SNR, but above it the wrong noise assumption makes it
+worse than LS.</p></div><figure class="ltx_figure" id="S4.F2"><img alt="Refer to caption" class="ltx_graphics ltx_centering" src="source/figures/mse_snr.png" width="520"/><figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>Mean-square error of the channel estimate against
+SNR.</figcaption></figure><div class="ltx_para" id="S4.p2"><p class="ltx_p">The BER follows the same pattern (Fig. <a class="ltx_ref" href="#fig:ber">3</a>). At 20 dB the
+DL receiver reaches
+<math alttext="1.39\times10^{-4}" class="ltx_Math" display="inline" id="S4.p2.m9" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.39</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.39\times10^{-4}</annotation></semantics></math>,
+against
+<math alttext="2.57\times10^{-3}" class="ltx_Math" display="inline" id="S4.p2.m10" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2.57</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.57\times10^{-3}</annotation></semantics></math>
+for LS, which is 18 times fewer errors, and the same value as a receiver
+that knows the channel exactly.</p></div><figure class="ltx_figure" id="S4.F3"><img alt="Refer to caption" class="ltx_graphics ltx_centering" src="source/figures/ber_snr.png" width="520"/><figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 3: </span>BER with QPSK for the three estimators and for perfect
+channel knowledge.</figcaption></figure></section><section class="ltx_section" id="S5"><h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">5 </span>Conclusion</h2><div class="ltx_para" id="S5.p1"><p class="ltx_p">A small network trained across the full SNR range removes the
+estimation loss of an indoor VLC-OFDM link in this simulation, while
+MMSE with a fixed design SNR degrades above it. The study is limited to
+one room, one LED and simulated channels; a measured testbed is the next
+step.</p></div></section></article></div></div></body></html>

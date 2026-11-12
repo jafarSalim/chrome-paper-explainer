@@ -1,0 +1,29 @@
+{
+  "name": "chrome-paper-explainer",
+  "version": "1.0.0",
+  "description": "Chrome extension: click an equation or figure in an arXiv paper and Claude explains it, grounded in the paper",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node --test test/unit.test.js",
+    "fixtures": "python3 scripts/make_fixtures.py",
+    "e2e": "xvfb-run -a python3 scripts/e2e.py",
+    "charts": "python3 scripts/charts.py"
+  },
+  "keywords": [
+    "chrome-extension",
+    "claude",
+    "arxiv",
+    "latex",
+    "katex",
+    "research"
+  ],
+  "author": "Jaafar Salim",
+  "license": "MIT",
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "katex": "^0.16.47"
+  },
+  "private": true
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Paper Explainer · Options</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 32px 16px; font: 15px/1.5 "Inter", "Segoe UI", system-ui, sans-serif; color: #1e1b2e;
+         background: radial-gradient(circle at 12% 18%, #c4b5fd 0, transparent 38%), radial-gradient(circle at 88% 22%, #a5f3fc 0, transparent 40%),
+                     radial-gradient(circle at 55% 92%, #fbcfe8 0, transparent 42%), #f5f3ff; }
+  form { width: min(560px, 100%); padding: 28px; border-radius: 24px; background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.9);
+         backdrop-filter: blur(20px) saturate(170%); box-shadow: 0 30px 60px -20px rgba(30,27,75,.35); display: grid; gap: 16px; }
+  h1 { margin: 0; font-size: 22px; } h1 span { background: linear-gradient(135deg, #7c3aed, #db2777); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: 13px; color: #4c1d95; }
+  input, select { font: inherit; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(139,92,246,.3); background: rgba(255,255,255,.75); color: #1e1b2e; }
+  small { font-weight: 400; color: #6b6785; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  button { border: 0; border-radius: 14px; padding: 11px; font: 600 15px/1 "Inter", system-ui, sans-serif; color: white; cursor: pointer; background: linear-gradient(135deg, #7c3aed, #db2777); }
+  details summary { cursor: pointer; color: #6b6785; font-size: 13px; }
+  #status { min-height: 1.2em; font-size: 13px; color: #047857; }
+</style>
+</head>
+<body>
+<form id="f">
+  <h1>Paper Explainer <span>for Claude</span></h1>
+  <label>Anthropic API key
+    <input id="apiKey" type="password" autocomplete="off" placeholder="sk-ant-…">
+    <small>Kept in this browser's extension storage and sent only to the API address below. Create one at console.anthropic.com.</small>
+  </label>
+  <div class="row">
+    <label>Model
+      <select id="model">
+        <option value="claude-sonnet-5-5">Sonnet 5.5 (default)</option>
+        <option value="claude-haiku-5-5">Haiku 5.5 (cheapest)</option>
+        <option value="claude-opus-5-5">Opus 5.5 (deepest)</option>
+      </select>
+    </label>
+    <label>Answer language
+      <select id="lang">
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="tr">Türkçe</option>
+      </select>
+    </label>
+  </div>
+  <label>Explain for
+    <select id="level">
+      <option value="student">a student new to the field</option>
+      <option value="researcher">a researcher from a neighbouring field</option>
+    </select>
+  </label>
+  <details>
+    <summary>Advanced</summary>
+    <label style="margin-top:10px">API address
+      <input id="baseUrl" type="url" placeholder="https://api.anthropic.com">
+      <small>Change only to use a proxy your organization runs. The browser will ask for permission to reach it.</small>
+    </label>
+  </details>
+  <button type="submit">Save</button>
+  <div id="status" role="status"></div>
+</form>
+<script src="options.js"></script>
+</body>
+</html>

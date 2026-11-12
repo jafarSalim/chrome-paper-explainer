@@ -1,0 +1,21 @@
+/* A small stand-in for the arXiv HTML stylesheet, so test screenshots look like a paper page. */
+body { margin: 0; background: #fff; color: #111; font: 17px/1.6 "Latin Modern Roman", "STIX Two Text", Georgia, serif; }
+.ltx_page_main { max-width: 820px; margin: 0 auto; padding: 32px 28px 80px; }
+.ltx_title_document { font-size: 30px; line-height: 1.25; text-align: center; margin: 12px 0 26px; font-weight: 700; }
+.ltx_abstract { margin: 0 36px 28px; font-size: 15.5px; }
+.ltx_title_abstract { text-align: center; font-size: 15px; margin: 0 0 6px; letter-spacing: .04em; }
+.ltx_title_section { font-size: 23px; margin: 30px 0 10px; }
+.ltx_tag_section { margin-right: .5em; }
+.ltx_para { margin: 0 0 12px; text-align: justify; }
+.ltx_p { margin: 0; }
+table.ltx_equation { width: 100%; margin: 14px 0; border-collapse: collapse; }
+table.ltx_equation td { padding: 0; }
+.ltx_eqn_eqno { width: 3em; text-align: right; }
+math[display="block"] { font-size: 1.15em; }
+figure.ltx_figure, figure.ltx_table { margin: 22px auto; text-align: center; }
+figure img { max-width: 100%; height: auto; }
+.ltx_caption { font-size: 15px; margin-top: 6px; }
+.ltx_tag_figure, .ltx_tag_table { font-weight: 700; }
+table.ltx_tabular { margin: 6px auto; border-collapse: collapse; font-size: 15px; }
+table.ltx_tabular td, table.ltx_tabular th { padding: 2px 12px; text-align: left; }
+a.ltx_ref { color: #b31b1b; text-decoration: none; }

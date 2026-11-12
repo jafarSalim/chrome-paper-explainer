@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Paper Explainer for Claude",
+  "short_name": "Paper Explainer",
+  "version": "1.0.0",
+  "description": "Click an equation or a figure in an arXiv paper and Claude explains it, grounded in the paper itself. Your own API key; Arabic and other languages.",
+  "icons": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "action": { "default_title": "Paper Explainer", "default_icon": { "16": "icons/icon16.png", "48": "icons/icon48.png" } },
+  "permissions": ["storage", "contextMenus", "sidePanel"],
+  "host_permissions": ["https://api.anthropic.com/*"],
+  "optional_host_permissions": ["http://localhost/*", "http://127.0.0.1/*", "https://*/*"],
+  "background": { "service_worker": "background.js" },
+  "side_panel": { "default_path": "sidepanel.html" },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://arxiv.org/html/*",
+        "https://ar5iv.labs.arxiv.org/html/*",
+        "https://ar5iv.org/*",
+        "https://*.wikipedia.org/wiki/*"
+      ],
+      "js": ["vendor/katex/katex.min.js", "src/extract.js", "src/render.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    { "resources": ["vendor/katex/katex.min.css", "vendor/katex/fonts/*", "src/panel.css"], "matches": ["<all_urls>"] }
+  ]
+}

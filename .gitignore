@@ -1,0 +1,6 @@
+node_modules/
+.e2e-profile/
+# downloaded on demand by scripts/e2e.py (Llama 4 Community License)
+data/
+__pycache__/
+*.zip

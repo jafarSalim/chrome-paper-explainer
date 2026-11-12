@@ -1,0 +1,118 @@
+{
+ "mock": "http://127.0.0.1:35749",
+ "steps": [
+  {
+   "step": "equation",
+   "seconds": 0.67
+  }
+ ],
+ "equation_answer_has_katex": true,
+ "panel": {
+  "eq": "10",
+  "fig": "4",
+  "sec": "5",
+  "cost": "2 questions · $0.0067\n2,321 tokens in (1,011 read from cache) · 345 out"
+ },
+ "requests": [
+  {
+   "model": "claude-sonnet-5-5",
+   "max_tokens": 900,
+   "user": "Explain this equation (equation 1):\n$$H_{\\mathrm{LOS}} = \\frac{(m+1)A}{2\\pi d^2}\\cos^m(\\phi)\\,T_s\\,g(\\psi)\\cos(\\psi)$$\n\nText just before it:\nThe LED sits at the centre of the ceiling and the photodiode at desk height (Fig. 1). The line-of-sight gain follows the Lambertian model (Kahn and Barry 1997),\n\nText just after it:\nwhere $m$ is the Lambertian order, $A$ the detector area and $d$ the distance. First reflections from the walls and the 3 MHz bandwidth of the LED complete the frequency response. Each OFDM symbol has 64 subcarriers with a pilot on every fourth one.",
+   "system_plain_tokens": 198,
+   "paper_tokens": 840,
+   "cache_control": [
+    null,
+    {
+     "type": "ephemeral"
+    },
+    null
+   ],
+   "usage": {
+    "input_tokens": 190,
+    "output_tokens": 209,
+    "cache_creation_input_tokens": 1011,
+    "cache_read_input_tokens": 0
+   },
+   "headers": {
+    "anthropic-version": "2023-06-01",
+    "anthropic-dangerous-direct-browser-access": "true"
+   },
+   "has_key": true
+  },
+  {
+   "model": "claude-sonnet-5-5",
+   "max_tokens": 900,
+   "user": "Explain Figure 2.\nCaption: Mean-square error of the channel estimate against SNR.\n\nWhere the text mentions it:\n- Fig. 2 shows the estimation error. At 20 dB the DL estimate is 10.4 dB better than LS. The MMSE estimator is better than LS near its design SNR, but above it the wrong noise assumption makes it worse than LS.",
+   "system_plain_tokens": 198,
+   "paper_tokens": 840,
+   "cache_control": [
+    null,
+    {
+     "type": "ephemeral"
+    },
+    null
+   ],
+   "usage": {
+    "input_tokens": 109,
+    "output_tokens": 136,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1011
+   },
+   "headers": {
+    "anthropic-version": "2023-06-01",
+    "anthropic-dangerous-direct-browser-access": "true"
+   },
+   "has_key": true
+  },
+  {
+   "model": "claude-sonnet-5-5",
+   "max_tokens": 900,
+   "user": "Summarize the paper in five bullet points: problem, method, data, main result with its numbers, and the main limitation.",
+   "system_plain_tokens": 198,
+   "paper_tokens": 840,
+   "cache_control": [
+    null,
+    {
+     "type": "ephemeral"
+    },
+    null
+   ],
+   "usage": {
+    "input_tokens": 57,
+    "output_tokens": 128,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1011
+   },
+   "headers": {
+    "anthropic-version": "2023-06-01",
+    "anthropic-dangerous-direct-browser-access": "true"
+   },
+   "has_key": true
+  },
+  {
+   "model": "claude-sonnet-5-5",
+   "max_tokens": 900,
+   "user": "Explain this equation (equation 1):\n$$H_{\\mathrm{LOS}} = \\frac{(m+1)A}{2\\pi d^2}\\cos^m(\\phi)\\,T_s\\,g(\\psi)\\cos(\\psi)$$\n\nText just before it:\nThe LED sits at the centre of the ceiling and the photodiode at desk height (Fig. 1). The line-of-sight gain follows the Lambertian model (Kahn and Barry 1997),\n\nText just after it:\nwhere $m$ is the Lambertian order, $A$ the detector area and $d$ the distance. First reflections from the walls and the 3 MHz bandwidth of the LED complete the frequency response. Each OFDM symbol has 64 subcarriers with a pilot on every fourth one.",
+   "system_plain_tokens": 231,
+   "paper_tokens": 840,
+   "cache_control": [
+    null,
+    {
+     "type": "ephemeral"
+    },
+    null
+   ],
+   "usage": {
+    "input_tokens": 223,
+    "output_tokens": 220,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1011
+   },
+   "headers": {
+    "anthropic-version": "2023-06-01",
+    "anthropic-dangerous-direct-browser-access": "true"
+   },
+   "has_key": true
+  }
+ ]
+}
